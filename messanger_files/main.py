@@ -1,5 +1,19 @@
-import flask
+from flask import Flask
 import time
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index_page():
+    return "Добро пожаловать в чат!"
+
+
+@app.route("/get_messages")
+def get_messages():
+    return {"messages": all_messages}
+
+
 
 t = time.localtime()
 current_time = time.strftime("%H:%M:%S", t)
@@ -29,3 +43,5 @@ def add_message(sender, text):
 
 
 print_all_messages()
+
+app.run()
