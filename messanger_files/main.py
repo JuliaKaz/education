@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
-import time
+from datetime import datetime
+import json
 
 app = Flask(__name__)
 
@@ -27,14 +28,11 @@ def send_message():
     return "OK"
 
 
-t = time.localtime()
-current_time = time.strftime("%H:%M:%S", t)
+def load_chat():
+    with open("chat.json", "r") as json_file:
 
-all_messages = [{
-    "sender": "Julia",
-    "text": "Hello",
-    "time": current_time
-}]
+
+all_messages = []
 
 
 def print_all_messages():
@@ -49,7 +47,7 @@ def add_message(sender, text):
     new_message = {
         "sender": sender,
         "text": text,
-        "time": current_time
+        "time": datetime.now().strftime("%H:%M")
     }
     all_messages.append(new_message)
 
