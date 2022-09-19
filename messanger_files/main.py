@@ -1,7 +1,12 @@
-from flask import Flask
+from flask import Flask, request, render_template
 import time
 
 app = Flask(__name__)
+
+
+@app.route("/chat")
+def display_chat():
+    return render_template("form.html")
 
 
 @app.route("/")
@@ -13,6 +18,13 @@ def index_page():
 def get_messages():
     return {"messages": all_messages}
 
+
+@app.route("/send_message")
+def send_message():
+    sender = request.args["name"]
+    text = request.args["text"]
+    add_message(sender, text)
+    return "OK"
 
 
 t = time.localtime()
